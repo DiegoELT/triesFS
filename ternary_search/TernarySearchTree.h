@@ -29,7 +29,6 @@ public:
 	}
 	
 	void insert (std::string word, int start, int offset) {
-		//std::cout << "Inserting: " << word << std::endl;
 		int i = 0;
 		Node *temp;
 		if (!root) {
@@ -122,14 +121,6 @@ public:
 		}
 	}
 
-	/*void pathReader () {
-		ifstream pathfile ("filePaths.txt");
-
-		string filename;
-		string path;
-		while (getline (pathfile, filename
-	}*/
-
 	void print () {
 		root->print (0);
 		std::cout << "size: " << size << std::endl;
@@ -148,12 +139,6 @@ public:
 			std::cout << std::endl;
 		}
 
-		//remaining.pop ();
-
-		/*if (temp->equal) {
-			word += temp->key;
-			dfs (temp->equal, word);
-		}*/
 		if (temp->left)
 			dfs (temp->left, word);
 		if (temp->right)
@@ -162,38 +147,11 @@ public:
 			word += temp->key;
 			dfs (temp->equal, word);
 		}
-		//if (remaining.empty ())
-		//	return;
-		//dfs (remaining.top (), remaining, word);
 	}	
 
 	void printWords () {
-		//std::stack<Node *> remaining;
 		std::string word;
-		//remaining.push (root);
-		/*Node *temp;
 		
-		while (!remaining.empty ()) {
-			temp = remaining.top ();
-			remaining.pop ();
-			if (temp->left)
-				remaining.push (temp->left); 
-			if (temp->right)
-				remaining.push (temp->right);
-			if (temp->equal)
-				remaining.push (temp->equal);
-
-			if (temp->terminal) {
-				std::cout << word << std::endl;
-				if (temp->key == '-')
-					word.clear ();
-				else {
-					word += temp->key;
-				}
-			}
-			else	
-				word += temp->key;
-		}*/
 		dfs (root, word);
 	}
 	~TernarySearchTree () {
