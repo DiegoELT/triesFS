@@ -150,11 +150,34 @@ public:
 	}	
 
 	void printWords () {
-		std::string word;
-		
+		std::string word;	
 		dfs (root, word);
 	}
-	~TernarySearchTree () {
-		delete root;
+
+	void withPrefix (std::string prefix) {
+		Node *temp = root;
+		int i = 0;
+		while (i < prefix.size ()) {
+			if (temp == nullptr)
+				return;
+			if (prefix[i] == temp->key) {
+				temp = temp->equal;
+				i++;
+				continue;
+			}
+
+			else if (prefix[i] > temp->key) {
+				temp = temp->right;
+				continue;
+			}
+
+			else if (prefix[i] < temp->key) {
+				temp = temp->left;
+				continue;
+			}
+
+			return;
+		}
+		dfs (temp, prefix);
 	}
 };

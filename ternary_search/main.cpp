@@ -3,5 +3,5 @@
 int main () {
 	TernarySearchTree t;
 	t.index ("filePaths.txt");
-	t.printWords ();
+	t.withPrefix ("s");
 }
