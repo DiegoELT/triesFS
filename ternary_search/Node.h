@@ -2,6 +2,7 @@
 #include <string>
 #include <fstream>
 #include <iostream>
+#include <unordered_map>
 
 class Node {
 protected:
@@ -9,6 +10,7 @@ protected:
 	char key;
 	bool terminal;
 	std::vector<std::pair<int, int>> paths;
+	std::unordered_map<int, std::vector<std::string>> sizes;
 public:
 	Node () : left (nullptr), equal (nullptr), right (nullptr) {
 		key = '-';

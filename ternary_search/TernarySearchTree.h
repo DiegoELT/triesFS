@@ -1,6 +1,7 @@
 #include "Node.h"
 #include <stack>
 #include <fstream>
+#include <sys/stat.h>
 
 class TernarySearchTree {
 private:
@@ -134,7 +135,17 @@ public:
 				char location [255];
 				pathfile.seekg (temp->getPaths ()[i].first);
 				pathfile.read (location, temp->getPaths ()[i].second);
-				std::cout << location << std::endl;
+				struct stat buf;
+				stat (location, &buf);
+				temp->sizes.insert (std::make_pair (buf.st_size, std::vector<std::string>()));
+				temp->sizes[buf.st_size].push_back (location);
+			}
+			for (auto it = temp->sizes.begin (); it != temp->sizes.end (); it++) {
+					std::cout << it->first << " ";
+					for (int i = 0; i < it->second.size (); i++) {
+						std::cout << it->second[i] << " | ";
+					}
+					std::cout << std::endl;
 			}
 			std::cout << std::endl;
 		}
