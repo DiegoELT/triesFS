@@ -10,7 +10,6 @@ protected:
 	char key;
 	bool terminal;
 	std::vector<std::pair<int, int>> paths;
-	std::unordered_map<int, std::vector<std::string>> sizes;
 public:
 	Node () : left (nullptr), equal (nullptr), right (nullptr) {
 		key = '-';
@@ -44,6 +43,7 @@ public:
 	std::vector<std::pair<int, int>> getPaths () {
 		return paths;
 	}
+
 	~Node () {
 		delete left;
 		delete equal;

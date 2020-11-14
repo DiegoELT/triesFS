@@ -7,6 +7,7 @@ class TernarySearchTree {
 private:
 	Node *root;
 	int size;
+	int bytes;
 public:
 	TernarySearchTree () : root (nullptr), size (0) {};
 
@@ -54,6 +55,7 @@ public:
 					i++;
 					while (i < word.size ()) {
 						temp->equal = new Node (word[i]);
+						size++;
 						i++;
 						temp = temp->equal;
 					}
@@ -67,6 +69,7 @@ public:
 						temp = temp->equal;
 						while (i < word.size ()) {
 							temp->equal = new Node (word[i]);
+							size++;
 							i++;
 							temp = temp->equal;
 						}
@@ -84,6 +87,7 @@ public:
 						temp = temp->left;
 						while (i < word.size ()) {
 							temp->equal = new Node (word[i]);
+							size++;
 							i++;
 							temp = temp->equal;
 						}
@@ -99,6 +103,7 @@ public:
 						temp = temp->right;
 						while (i < word.size ()) {
 							temp->equal = new Node (word[i]);
+							size++;
 							i++;
 							temp = temp->equal;
 						}
@@ -129,7 +134,8 @@ public:
 	
 	void dfs (Node *temp, std::string word) {
 		if (temp->terminal) {
-			std::cout << word << " present at " << std::endl;
+			std::unordered_map<int, std::vector<std::string>> sizes;
+			std::cout << word  << " present:" << std::endl;
 			for (int i = 0; i < temp->getPaths ().size (); i++) {
 				std::ifstream pathfile ("filePaths.txt");
 				char location [255];
@@ -137,11 +143,11 @@ public:
 				pathfile.read (location, temp->getPaths ()[i].second);
 				struct stat buf;
 				stat (location, &buf);
-				temp->sizes.insert (std::make_pair (buf.st_size, std::vector<std::string>()));
-				temp->sizes[buf.st_size].push_back (location);
+				sizes.insert (std::make_pair (buf.st_size, std::vector<std::string>()));
+				sizes[buf.st_size].push_back (location);
 			}
-			for (auto it = temp->sizes.begin (); it != temp->sizes.end (); it++) {
-					std::cout << it->first << " ";
+			for (auto it = sizes.begin (); it != sizes.end (); it++) {
+					std::cout << "with size: " << it->first << " at ";
 					for (int i = 0; i < it->second.size (); i++) {
 						std::cout << it->second[i] << " | ";
 					}
@@ -149,7 +155,7 @@ public:
 			}
 			std::cout << std::endl;
 		}
-
+		bytes += sizeof (Node) + (2 * sizeof (int)) * temp->paths.size ();
 		if (temp->left)
 			dfs (temp->left, word);
 		if (temp->right)
@@ -158,13 +164,21 @@ public:
 			word += temp->key;
 			dfs (temp->equal, word);
 		}
-	}	
+	}
 
 	void printWords () {
 		std::string word;	
 		dfs (root, word);
 	}
+	
+	int getSize () {
+		return size;
+	}
 
+	int getBytes () {
+		return bytes;
+	}
+	
 	void withPrefix (std::string prefix) {
 		Node *temp = root;
 		int i = 0;
