@@ -52,7 +52,7 @@ int main(){
     Trie tr;
     tr.insert(str);
     tr.insert(str2);
-    tr.printTrie();
+    //tr.printTrie();
 
    return 0;
 }
