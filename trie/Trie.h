@@ -1,6 +1,5 @@
 #include "Node.h"
 using namespace std;
-
 class Trie{
 public:
     Node * root;
@@ -13,7 +12,7 @@ public:
 	for (char& c :str){
 	    //cout<< (int)c << endl;
 	    int posInArr = (int)c -32 ;
-		cout << c << " " << posInArr << endl;
+	//	cout << c << " " << posInArr << endl;
 	    temp = &(*temp)->next[posInArr];
 
 	    if( !(*temp) ) {

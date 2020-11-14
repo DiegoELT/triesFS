@@ -8,7 +8,6 @@ struct Node{
 public:
     Node* next[94]; // 32 al 126
     bool esTerminal;
-
     Node(){
 	esTerminal=false;
 	for (int i = 0; i < 94; i++) {
