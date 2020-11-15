@@ -117,8 +117,8 @@ public:
 			return;	
 		}
 		if (temp->equal) {
-			temp->equal->terminal = true;
-			temp->equal->addPath (std::make_pair (start, offset));
+			temp->terminal = true;
+			temp->addPath (std::make_pair (start, offset));
 		}
 		else {
 			temp->equal = new Node (true);
