@@ -31,8 +31,12 @@ int main(){
     cout<<"Visuazilar archivos con conjunto de letras: ";
     std::string var;
     cin>>var ;
+    auto start = std::chrono::high_resolution_clock::now ();
     trie.consulta(var);
-
+	trie.sumBytes ();
+    auto end = std::chrono::high_resolution_clock::now ();
+    auto duration = std::chrono::duration_cast<std::chrono::microseconds>( end - start ).count();
     std::cout << "Size in bytes: " << trie.getBytes () << std::endl;
+	cout << "Execution time: " << duration << "us" << endl;
     return 0;
 }
