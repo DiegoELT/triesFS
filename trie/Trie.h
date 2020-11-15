@@ -5,10 +5,11 @@ using namespace std;
 class Trie{
 public:
     Node * root;
-    int bytes;
+    unsigned long long bytes;
 
     Trie(){
 	root = new Node();
+	bytes = 0;
     }
     void insert(std::string str, int start, int offset){
 	Node**temp = &root;
@@ -31,7 +32,7 @@ public:
     void dfs (Node **temp, std::string word) {
 	if ((*temp)->esTerminal) {
 	    std::unordered_map<int, std::vector<std::string>> sizes;
-	    std::cout << word<<"esta presente: " << std::endl;
+	    //std::cout << word<<"esta presente: " << std::endl;
 	    for (int i = 0; i < (*temp)->getPaths ().size (); i++) {
 		std::ifstream pathfile ("filePaths.txt");
 		char location [255];
@@ -43,11 +44,11 @@ public:
 		sizes[buf.st_size].push_back (location);
 	    }
 	    for (auto it = sizes.begin (); it != sizes.end (); it++) {
-		std::cout << "with size: " << it->first << " at ";
+		//std::cout << "with size: " << it->first << " at ";
 		for (int i = 0; i < it->second.size (); i++) {
-			std::cout << it->second[i] << " | ";
+		//	std::cout << it->second[i] << " | ";
 		}
-		std::cout << std::endl;
+		//std::cout << std::endl;
 	    }
 	}
 	bytes += sizeof(Node) + (2 * sizeof (int)) * (*temp)->paths.size ();
@@ -99,5 +100,9 @@ public:
 		start = indexFile.tellg ();
 	    }
     }
-
+	
+	void sumBytes () {
+		bytes = 0; 
+		dfs (&root, "");
+	}
 };
