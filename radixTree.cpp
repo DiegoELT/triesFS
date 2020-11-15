@@ -206,16 +206,18 @@ class RadixTree {
 };
 
 int main() {
-  RadixTree testTree("allPdfDataset.txt");
-  auto start = std::chrono::high_resolution_clock::now ();
+  RadixTree testTree("filePaths.txt");
   testTree.readFromFile();
-  auto end = std::chrono::high_resolution_clock::now ();
-  auto duration = std::chrono::duration_cast<std::chrono::microseconds>( end - start ).count();
-  cout << "Time for indexing: " << duration << " us" << endl;
 
   //TO DO: Change the querues;
-  RadixNode * testNode = testTree.search("loops");
-  testNode -> print("allPdfDataset.txt");
-
+  auto start = std::chrono::high_resolution_clock::now ();
+  RadixNode *testNode;
+  for (int i = 0; i < 100; i++) {
+  	testNode = testTree.search("topsecret");
+  }
+  auto end = std::chrono::high_resolution_clock::now ();
+  auto duration = std::chrono::duration_cast<std::chrono::microseconds>( end - start ).count();
+  cout << "Execution time: " << duration << " us" << endl;
+  testNode->print ("filePaths.txt");
   cout << "Size in bytes: " << testTree.getSize() << endl;
 }
