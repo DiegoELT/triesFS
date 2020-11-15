@@ -8,12 +8,26 @@ struct Node{
 public:
     Node* next[94]; // 32 al 126
     bool esTerminal;
+    std::vector<std::pair<int, int>> paths;
+
+
     Node(){
 	esTerminal=false;
 	for (int i = 0; i < 94; i++) {
 		next[i] = nullptr;
 	}
     }
+    void addPath (std::pair<int, int> path) {
+		paths.push_back (path);
+    }
+
+    std::vector<std::pair<int, int>> getPaths () {
+		return paths;
+    }
+
+    ~Node () {
+    }
+
 /*
 
 class Node {
